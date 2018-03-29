@@ -54,9 +54,11 @@ class Matrix {
     template<typename F, int row2, int col2>
     friend class Matrix; //all matrices over the same Field are friends of each other
     std::array<Field, row*col> entries;
+    
     const Field& operator[](struct index i) const {
         return entries[col*i.r+i.c];
     };
+    
     //length of each row is "col"
     const Vector<Field, col> getRow(int r) const {
         std::array<Field, col> rowR;
@@ -65,6 +67,7 @@ class Matrix {
         }
         return Vector<Field, col>(rowR);
     };
+    
     //length of each col is "row"
     const Vector<Field, row> getCol(int c) const {
         std::array<Field, row> colC;
@@ -73,6 +76,7 @@ class Matrix {
         }
         return Vector<Field, row>(colC);
     };
+    
     Matrix<Field, row, col-1> removeCol(int i) const {
         std::array<Field, row*(col-1)> colRemoved;
         for (int r = 0; r < row; r++){
@@ -86,8 +90,11 @@ class Matrix {
         }
         return Matrix<Field, row, col-1>(colRemoved);
     }
+    
 public:
+    
     Matrix(std::array<Field, row*col> entries) : entries(entries){};
+    
     template<int p> //m x n matrix multiplied by n x p matrix, over field F
     Matrix<Field, row, p> operator*(const Matrix<Field, col, p>& m) const{
         std::array<Field, row*p> product;
@@ -99,11 +106,13 @@ public:
         }
         return Matrix<Field, row, p>(product);
     };
+    
     Vector<Field, row> operator*(const Vector<Field, col>& vector) const {
         Matrix<Field, col, 1> columnVector = Matrix<Field, col, 1>(vector.getData());
         Matrix<Field, row, 1> product = (*this) * columnVector;
         return Vector<Field, row>(product.entries);
     };
+    
     template<typename F, int n>
     friend struct detCalculator;
     
@@ -111,6 +120,7 @@ public:
         static_assert((row == col), "Determinant can only be taken for square matrices");
         return detCalculator<Field, row>::det(m);
     }
+    
     friend std::ostream& operator<<(std::ostream& out, const Matrix<Field, row, col>& m){
         std::array<std::array<std::string, col>, row> elems;
         std::array<int, col>  maxLengths{0};
