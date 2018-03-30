@@ -31,7 +31,7 @@ class Matrix {
     //length of each row is "col"
     const Vector<Field, col> getRow(int r) const {
         std::array<Field, col> rowR;
-        for (int i = 0; i < col; i++){
+        for (int i = 0; i < col; ++i){
             rowR[i] = (*this)[{r,i}];
         }
         return Vector<Field, col>(rowR);
@@ -40,7 +40,7 @@ class Matrix {
     //length of each col is "row"
     const Vector<Field, row> getCol(int c) const {
         std::array<Field, row> colC;
-        for (int i = 0; i < row; i++){
+        for (int i = 0; i < row; ++i){
             colC[i] = (*this)[{i,c}];
         }
         return Vector<Field, row>(colC);
@@ -49,7 +49,7 @@ class Matrix {
     Matrix<Field, row, col-1> removeCol(int i) const {
         std::array<Field, row*(col-1)> colRemoved;
         for (int r = 0; r < row; r++){
-            for (int c = 0; c < (col - 1); c++){
+            for (int c = 0; c < (col - 1); ++c){
                 if (c < i) {
                     colRemoved[r*(col-1) + c] = (*this)[{r, c}];
                 } else {
@@ -71,7 +71,7 @@ public:
     
     //matrix additions, subtractions, negatives:
     Matrix& operator+=(const Matrix& other) {
-        for (int i = 0; i < row * col; i++){
+        for (int i = 0; i < row * col; ++i){
             this->entries[i] += other.entries[i];
         }
         return *this;
@@ -88,7 +88,7 @@ public:
     };
     
     Matrix& operator-=(const Matrix& other) {
-        for (int i = 0; i < row * col; i++){
+        for (int i = 0; i < row * col; ++i){
             this->entries[i] -= other.entries[i];
         }
         return (*this);
@@ -96,7 +96,7 @@ public:
     
     Matrix operator-() const {
         std::array<Field, row * col> negative;
-        for (int i = 0; i < row * col; i++){
+        for (int i = 0; i < row * col; ++i){
             negative[i] = -this->entries[i];
         }
         return negative;
@@ -108,21 +108,25 @@ public:
         return copy;
     };
     
-    //scalar product:
-    friend Matrix<Field, row, col> operator*(const Field& scalar, const Matrix<Field, row, col>& m){
-        std::array<Field, row * col> scaled;
-        for (int i = 0; i < row * col ; i++){
-            scaled[i] = scalar * m.entries[i];
+    //transpose:
+    Matrix<Field, col, row> transpose() const {
+        std::array <Field, col * row> transposeEntries;
+        for (int r = 0; r < col; ++r){
+            for (int c = 0; c < row; ++c){
+                //number of cols is row for transpose
+                transposeEntries[row*r+c] = (*this)[{c, r}];
+            }
         }
-        return Matrix<Field, row, col>(scaled);
-    };
+        return Matrix<Field, col, row>(transposeEntries);
+    }
+    
     
     template<int p> //m x n matrix multiplied by n x p matrix, over field F
     Matrix<Field, row, p> operator*(const Matrix<Field, col, p>& m) const{
         std::array<Field, row*p> product;
-        for (int r = 0; r < row; r++ ){
+        for (int r = 0; r < row; r++){
             for (int c = 0; c < p; c++){
-//                std::cout <<"Multiplying: \n" << m1.getRow(r) << "\nwith \n" << m2.getCol(c) << std::endl;
+                // std::cout <<"Multiplying: \n" << m1.getRow(r) << "\nwith \n" << m2.getCol(c) << std::endl;
                 product[p*r+c] = (*this).getRow(r) * m.getCol(c); // dot product
             }
         }
@@ -157,6 +161,15 @@ public:
                 determinant = determinant - cofactor;
         }
         return determinant;
+    };
+    
+    //scalar product:
+    friend Matrix<Field, row, col> operator*(const Field& scalar, const Matrix<Field, row, col>& m){
+        std::array<Field, row * col> scaled;
+        for (int i = 0; i < row * col ; i++){
+            scaled[i] = scalar * m.entries[i];
+        }
+        return Matrix<Field, row, col>(scaled);
     };
 
     friend std::ostream& operator<<(std::ostream& out, const Matrix<Field, row, col>& m){

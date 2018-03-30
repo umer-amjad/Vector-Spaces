@@ -36,7 +36,8 @@ int main(int argc, const char * argv[]) {
         5, -5,
         0.5, -3
     });
-    std::cout << A1 << '\n'<< A2 << '\n' << (A1*A2) << '\n' << (A1*M) << '\n' << (A1 * A3) << '\n';
+    std::cout << "A1: \n" << A1 << '\n'<< A2 << '\n' << (A1*A2) << '\n' << (A1*M) << '\n' << (A1 * A3) << '\n';
+    std::cout << "A1 transpose \n" << A1.transpose() << std::endl;
     std::cout << "M:\n" << M << std::endl;
     R3 v1({1,0,1.2});
     std::cout << "A1(v1): \n"<< (A1*v1) << '\n';
