@@ -138,9 +138,8 @@ class Matrix<Field, 0, 0>{
 public:
     Matrix(std::array<Field, 0> entries){};
     Field det(){
-        Field one{};
-        one++;
-        return one;
+        Field zero{};
+        return ++zero; //return one
     };
 };
 
