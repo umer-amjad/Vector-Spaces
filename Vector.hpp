@@ -17,6 +17,7 @@
 template <class Field, int dim>
 class Vector {
     std::array<Field, dim> components;
+    
     const Field& operator[](int index) const { 
         return components[index];
     }
