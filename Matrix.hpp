@@ -16,43 +16,12 @@ struct index{
     int c;
 };
 
-template<typename Field, int row, int col> class Matrix;
-
-template<typename Field, int n>
-struct detCalculator{
-    static Field det(const Matrix<Field, n, n>& m){
-        std::array<Field, (n-1)*n> removedFirstRow;
-        for (int r = 0; r < (n-1); r++){
-            for (int c = 0; c < n; c++){
-                removedFirstRow[r*n + c] = m[{r+1, c}];
-            }
-        };
-        Field determinant{};
-        Matrix<Field, n-1, n> subM(removedFirstRow);
-        for (int c = 0; c < n; c++){
-            Field cofactor = m[{0, c}] * detCalculator<Field, n-1>::det(subM.removeCol(c));
-            //std::cout << "Cofactor " << c << " is: " << cofactor << std::endl;
-            if (c % 2 == 0)
-                determinant = determinant + cofactor;
-            else
-                determinant = determinant - cofactor;
-        }
-        return determinant;
-    };
-    
-};
-
-template<typename Field>
-struct detCalculator<Field, 1>{
-    static Field det(const Matrix<Field, 1, 1>& m){
-        return m[{0,0}]; // single entry
-    };
-};
-
 template<typename Field, int row, int col>
 class Matrix {
-    template<typename F, int row2, int col2>
+    template<typename Field2, int row2, int col2>
     friend class Matrix; //all matrices over the same Field are friends of each other
+    //can't partially specialize, so all matrices friends of each other
+    
     std::array<Field, row*col> entries;
     
     const Field& operator[](struct index i) const {
@@ -113,14 +82,29 @@ public:
         return Vector<Field, row>(product.entries);
     };
     
-    template<typename F, int n>
-    friend struct detCalculator;
     
-    friend Field det(const Matrix & m){
+    Field det(){
         static_assert((row == col), "Determinant can only be taken for square matrices");
-        return detCalculator<Field, row>::det(m);
-    }
-    
+        constexpr int n = row;
+        std::array<Field, (n-1)*n> removedFirstRow;
+        for (int r = 0; r < (n-1); r++){
+            for (int c = 0; c < n; c++){
+                removedFirstRow[r*n + c] = (*this)[{r+1, c}];
+            }
+        };
+        Field determinant{};
+        Matrix<Field, n-1, n> subM(removedFirstRow);
+        for (int c = 0; c < n; c++){
+            Field cofactor = (*this)[{0, c}] * (subM.removeCol(c)).det();
+            //std::cout << "Cofactor " << c << " is: " << cofactor << std::endl;
+            if (c % 2 == 0)
+                determinant = determinant + cofactor;
+            else
+                determinant = determinant - cofactor;
+        }
+        return determinant;
+    };
+
     friend std::ostream& operator<<(std::ostream& out, const Matrix<Field, row, col>& m){
         std::array<std::array<std::string, col>, row> elems;
         std::array<int, col>  maxLengths{0};
@@ -148,5 +132,16 @@ public:
     };
 };
 
+//partially specialize class for 0 x 0 trivial matrices
+template<typename Field>
+class Matrix<Field, 0, 0>{
+public:
+    Matrix(std::array<Field, 0> entries){};
+    Field det(){
+        Field one{};
+        one++;
+        return one;
+    };
+};
 
 #endif /* Matrix_hpp */

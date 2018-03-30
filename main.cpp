@@ -14,11 +14,13 @@
 int main(int argc, const char * argv[]) {
     typedef Vector<double, 3> R3;
     Matrix<double, 3, 3> M({
-        1, 2, 0,
-        0, 1, -3.5,
-        -1, 0, 1
+        1, 2, -4.3,
+        11.2, 1, -3.5,
+        -1, -13, 1
     });
-    std::cout << "det(M) is: " << det(M) << std::endl;
+    //std::cout << "det(M) is: " << det(M) << std::endl; //561.88
+    std::cout << "2. det(M) is: " << M.det() << std::endl;
+
     Matrix<double, 2, 3> A1({
        3, 7, 0,
        0.5, 4, 2
