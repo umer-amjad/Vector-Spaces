@@ -77,7 +77,7 @@ public:
     };
     
     Vector<Field, row> operator*(const Vector<Field, col>& vector) const {
-        Matrix<Field, col, 1> columnVector = Matrix<Field, col, 1>(vector.getData());
+        Matrix<Field, col, 1> columnVector = Matrix<Field, col, 1>(vector.getComponents());
         Matrix<Field, row, 1> product = (*this) * columnVector;
         return Vector<Field, row>(product.entries);
     };

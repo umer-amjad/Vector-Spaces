@@ -16,26 +16,50 @@
 
 template <class Field, int dim>
 class Vector {
-    std::array<Field, dim> data;
+    std::array<Field, dim> components;
     const Field& operator[](int index) const { 
-        return data[index];
+        return components[index];
     }
+    
+    Field& operator[](int index) {
+        return components[index];
+    }
+    
 public:
-    Vector(std::array<Field, dim> components) : data(components) {};
-    std::array<Field, dim> getData() const{
-        return data;
+    
+    //zero initialize:
+    Vector(){
+        components = std::array<Field, dim>{};
     }
+    
+    Vector(std::array<Field, dim> components) : components(components) {};
+    
+    std::array<Field, dim> getComponents() const{
+        return components;
+    }
+    
     //vector additions, subtractions, negatives:
-    Vector operator+(const Vector& other) const {
-        std::array<Field, dim> sum;
+    Vector& operator+=(const Vector& other) {
         for (int i = 0; i < dim; i++){
-            sum[i] = (*this)[i] + other[i];
+            (*this)[i] += other[i];
         }
-        return Vector(sum);
+        return (*this);
     };
     
-    Vector& operator+=(const Vector& other) {
-        (*this) = (*this) + other;
+    Vector operator+() const {
+        return *this;
+    }
+    
+    Vector operator+(const Vector& other) const {
+        Vector copy = *this;
+        copy += other;
+        return copy;
+    };
+    
+    Vector& operator-=(const Vector& other) {
+        for (int i = 0; i < dim; i++){
+            (*this)[i] -= other[i];
+        }
         return (*this);
     };
     
@@ -48,12 +72,9 @@ public:
     };
     
     Vector operator-(const Vector& other) const {
-        return (*this) + (other.operator-());
-    };
-    
-    Vector& operator-=(const Vector& other) {
-        (*this) = (*this) - other;
-        return (*this);
+        Vector copy = *this;
+        copy -= other;
+        return copy;
     };
     
     //dot product:
