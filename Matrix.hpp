@@ -12,8 +12,8 @@
 #include "Vector.hpp"
 
 struct MatrixIndex {
-    int rIndex;
-    int cIndex;
+    int rowIndex;
+    int colIndex;
 } typedef MatrixIndex;
 
 template<typename Field, int row, int col>
@@ -22,10 +22,10 @@ class Matrix {
     friend class Matrix; //all matrices over the same Field are friends of each other
     //can't partially specialize, so all matrices friends of each other
     
-    std::array<Field, row*col> entries;
+    std::array<Field, row * col> entries;
     
-    const Field& operator[](struct MatrixIndex i) const {
-        return entries[col*i.rIndex+i.cIndex];
+    const Field& operator[](MatrixIndex i) const {
+        return entries[col*i.rowIndex+i.colIndex];
     };
     
     //length of each row is "col"
@@ -69,6 +69,54 @@ public:
     
     Matrix(std::array<Field, row*col> entries) : entries(entries){};
     
+    //matrix additions, subtractions, negatives:
+    Matrix& operator+=(const Matrix& other) {
+        for (int i = 0; i < row * col; i++){
+            this->entries[i] += other.entries[i];
+        }
+        return *this;
+    };
+    
+    Matrix operator+() const {
+        return *this;
+    }
+    
+    Matrix operator+(const Matrix& other) const {
+        Matrix copy = *this;
+        copy += other;
+        return copy;
+    };
+    
+    Matrix& operator-=(const Matrix& other) {
+        for (int i = 0; i < row * col; i++){
+            this->entries[i] -= other.entries[i];
+        }
+        return (*this);
+    };
+    
+    Matrix operator-() const {
+        std::array<Field, row * col> negative;
+        for (int i = 0; i < row * col; i++){
+            negative[i] = -this->entries[i];
+        }
+        return negative;
+    };
+    
+    Matrix operator-(const Matrix& other) const {
+        Matrix copy = *this;
+        copy -= other;
+        return copy;
+    };
+    
+    //scalar product:
+    friend Matrix<Field, row, col> operator*(const Field& scalar, const Matrix<Field, row, col>& m){
+        std::array<Field, row * col> scaled;
+        for (int i = 0; i < row * col ; i++){
+            scaled[i] = scalar * m.entries[i];
+        }
+        return Matrix<Field, row, col>(scaled);
+    };
+    
     template<int p> //m x n matrix multiplied by n x p matrix, over field F
     Matrix<Field, row, p> operator*(const Matrix<Field, col, p>& m) const{
         std::array<Field, row*p> product;
@@ -81,6 +129,7 @@ public:
         return Matrix<Field, row, p>(product);
     };
     
+    //Apply matrix as linear transformation
     Vector<Field, row> operator*(const Vector<Field, col>& vector) const {
         Matrix<Field, col, 1> columnVector = Matrix<Field, col, 1>(vector.getComponents());
         Matrix<Field, row, 1> product = (*this) * columnVector;
@@ -96,7 +145,7 @@ public:
             for (int c = 0; c < n; c++){
                 removedFirstRow[r*n + c] = (*this)[{r+1, c}];
             }
-        };
+        }
         Field determinant{};
         Matrix<Field, n-1, n> subM(removedFirstRow);
         for (int c = 0; c < n; c++){

@@ -89,7 +89,7 @@ public:
     
     //scalar product:
     friend Vector<Field, dim> operator*(const Field& scalar, const Vector<Field, dim>& v){
-        std::array<Field, dim> scaled{};
+        std::array<Field, dim> scaled;
         for (int i = 0; i < dim; i++){
             scaled[i] = scalar * v[i];
         }
