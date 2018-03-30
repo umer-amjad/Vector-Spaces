@@ -46,7 +46,7 @@ int main(int argc, const char * argv[]) {
     R3 v4 = 7.5*v1 - 2*v2;
     R3 v5 = -2.5 * v3;
     R3 v6 = M*v2;
-    R3 v7 = v2;
+    R3 v7(v2);
     v7 = 2*v7;
     R3 zeroVec{};
     double dotProduct = v1 * v2;
@@ -61,5 +61,9 @@ int main(int argc, const char * argv[]) {
     std::cout << "zeroVec : \n" << zeroVec << std::endl;
     std::cout << "v7 = 2*v2 : \n" << v7 << std::endl;
     std::cout << "v2: \n" << v2 << std::endl;
+    v7 = v3;
+    v7 = 0.5*v3;
+    std::cout << "v7 = 0.5*v3 : \n" << v7 << std::endl;
+    std::cout << "v3: \n" << v3 << std::endl;
 }
 
