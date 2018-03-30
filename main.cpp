@@ -49,6 +49,7 @@ int main(int argc, const char * argv[]) {
     R3 v7(v2);
     v7 = 2*v7;
     R3 zeroVec{};
+    Matrix<double, 2, 4> zeroMatrix{};
     double dotProduct = v1 * v2;
     std::cout << "v1: \n" << v1 << std::endl;
     std::cout << "v2: \n" << v2 << std::endl;
@@ -58,12 +59,13 @@ int main(int argc, const char * argv[]) {
     std::cout << "v5 = -2.5 * v3: \n" << v5 << std::endl;
     std::cout << "dotProd v1*v2 : \n" << dotProduct << std::endl;
     std::cout << "M(v2) : \n" << v6 << std::endl;
-    std::cout << "zeroVec : \n" << zeroVec << std::endl;
+    std::cout << "zero vector : \n" << zeroVec << std::endl;
     std::cout << "v7 = 2*v2 : \n" << v7 << std::endl;
     std::cout << "v2: \n" << v2 << std::endl;
     v7 = v3;
     v7 = 0.5*v3;
     std::cout << "v7 = 0.5*v3 : \n" << v7 << std::endl;
     std::cout << "v3: \n" << v3 << std::endl;
+    std::cout << "Zero matrix (2 x 4): \n" << zeroMatrix << std::endl;
 }
 

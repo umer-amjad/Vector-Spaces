@@ -11,10 +11,10 @@
 #include <array>
 #include "Vector.hpp"
 
-struct index{
-    int r;
-    int c;
-};
+struct MatrixIndex {
+    int rIndex;
+    int cIndex;
+} typedef MatrixIndex;
 
 template<typename Field, int row, int col>
 class Matrix {
@@ -24,8 +24,8 @@ class Matrix {
     
     std::array<Field, row*col> entries;
     
-    const Field& operator[](struct index i) const {
-        return entries[col*i.r+i.c];
+    const Field& operator[](struct MatrixIndex i) const {
+        return entries[col*i.rIndex+i.cIndex];
     };
     
     //length of each row is "col"
@@ -61,6 +61,11 @@ class Matrix {
     }
     
 public:
+    
+    //zero-initialize
+    Matrix() {
+        entries = std::array<Field, row*col>{};
+    }
     
     Matrix(std::array<Field, row*col> entries) : entries(entries){};
     
