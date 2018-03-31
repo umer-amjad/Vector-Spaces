@@ -91,7 +91,7 @@ public:
         for (int i = 0; i < row * col; ++i){
             this->entries[i] -= other.entries[i];
         }
-        return (*this);
+        return *this;
     };
     
     Matrix operator-() const {
@@ -127,7 +127,7 @@ public:
         for (int r = 0; r < row; ++r){
             for (int c = 0; c < p; ++c){
                 // std::cout <<"Multiplying: \n" << m1.getRow(r) << "\nwith \n" << m2.getCol(c) << std::endl;
-                product[p*r+c] = (*this).getRow(r) * m.getCol(c); // dot product
+                product[p*r+c] = this->getRow(r) * m.getCol(c); // dot product
             }
         }
         return Matrix<Field, row, p>(product);

@@ -44,7 +44,7 @@ public:
         for (int i = 0; i < dim; ++i){
             (*this)[i] += other[i];
         }
-        return (*this);
+        return *this;
     };
     
     Vector operator+() const {
@@ -61,13 +61,13 @@ public:
         for (int i = 0; i < dim; ++i){
             (*this)[i] -= other[i];
         }
-        return (*this);
+        return *this;
     };
     
     Vector operator-() const {
         std::array<Field, dim> negative;
         for (int i = 0; i < dim; ++i){
-            negative[i] = -((*this)[i]);
+            negative[i] = -(*this)[i];
         }
         return negative;
     };
