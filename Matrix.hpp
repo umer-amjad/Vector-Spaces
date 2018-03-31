@@ -163,13 +163,23 @@ public:
         return determinanterminant;
     };
     
+    Field multiplicativeTrace(){
+        static_assert((row == col), "Trace can only be taken for square matrices");
+        constexpr int n = row;
+        Field trace{}; //initialize to zero
+        ++trace; //one
+        for (int i = 0; i < n; ++i){
+            trace *= (*this)[{i, i}];
+        }
+        return trace;
+    }
+    
     Field trace(){
         static_assert((row == col), "Trace can only be taken for square matrices");
         constexpr int n = row;
         Field trace{}; //initialize to zero
-        ++trace; //now one
         for (int i = 0; i < n; ++i){
-            trace *= (*this)[{i, i}];
+            trace += (*this)[{i, i}];
         }
         return trace;
     }

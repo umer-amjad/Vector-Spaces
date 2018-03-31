@@ -30,6 +30,7 @@ int main(int argc, const char * argv[]) {
     std::cout << "M: \n" << M << std::endl;
     std::cout << "determinant(M) is: " << M.determinant() << std::endl;  //561.88
     std::cout << "trace(M) is: " << M.trace() << std::endl;
+    std::cout << "(product of diagonal entries) multiplicativeTrace(M) is: " << M.multiplicativeTrace() << std::endl;
 
     Matrix<Zmod<13>, 2, 2> modExample({
         3, 7,
@@ -38,6 +39,7 @@ int main(int argc, const char * argv[]) {
     std::cout << "modExample: \n" << modExample << std::endl;
     std::cout << "determinant(modExample) is: " << modExample.determinant() << std::endl;
     std::cout << "trace(modExample) is: " << modExample.trace() << std::endl;
+    std::cout << "multiplicativeTrace(modExample) is: " << modExample.multiplicativeTrace() << std::endl;
     
     Matrix<Zmod<13>, 2, 2> modExample2({
         3, 7,
@@ -46,6 +48,7 @@ int main(int argc, const char * argv[]) {
     std::cout << "modExample2: \n" << modExample2 << std::endl;
     std::cout << "determinant(modExample2) is: " << modExample2.determinant() << std::endl;
     std::cout << "trace(modExample2) is: " << modExample2.trace() << std::endl;
+    std::cout << "multiplicativeTrace(modExample2) is: " << modExample2.multiplicativeTrace() << std::endl;
     
     Matrix<Zmod<7>, 2, 2> modExample3({
         3, 7,
@@ -54,6 +57,7 @@ int main(int argc, const char * argv[]) {
     std::cout << "modExample3: \n" << modExample3 << std::endl;
     std::cout << "determinant(modExample3) is: " << modExample3.determinant() << std::endl;
     std::cout << "trace(modExample3) is: " << modExample3.trace() << std::endl;
+    std::cout << "multiplicativeTrace(modExample3) is: " << modExample3.multiplicativeTrace() << std::endl;
 
     
     Matrix<double, 2, 3> A1({
