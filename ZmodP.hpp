@@ -90,7 +90,7 @@ public:
         return copy;
     }
     
-    Zmod inverse(){
+    Zmod inverse() const{
         //Using the Extended Euclidean Algorithm
         int r = p;
         int r_next = elem;
@@ -106,6 +106,17 @@ public:
             t = old_t_next;
         }
         return Zmod(t);
+    }
+    
+    Zmod& operator/=(const Zmod& other){
+        (*this) *= other.inverse();
+        return *this;
+    }
+    
+    Zmod operator/(const Zmod& other) const{
+        Zmod copy = *this;
+        copy /= other;
+        return copy;
     }
     
     friend std::ostream& operator<<(std::ostream& out, const Zmod& val){
