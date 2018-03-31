@@ -16,17 +16,17 @@ public:
     
     //zero initialize:
     Zmod() : elem(0){};
-    Zmod(int a) : elem(a % p){};
+    Zmod(int a) : elem((a + p) % p){};
     
-    Zmod& operator++() const{
-        ++elem();
+    Zmod& operator++(){
+        ++elem;
         if (elem == p){
             elem = 0;
         }
         return *this;
     }
     
-    Zmod operator++(int) const{
+    Zmod operator++(int){
         Zmod copy = *this;
         operator++();
         return copy;
@@ -53,8 +53,7 @@ public:
     }
     
     Zmod& operator-=(const Zmod& other){
-        this->elem += -other.elem;
-        this->elem %= p;
+        *this += -other;
         return *this;
     }
     
@@ -74,6 +73,11 @@ public:
         Zmod copy = *this;
         copy *= other;
         return copy;
+    }
+    
+    friend std::ostream& operator<<(std::ostream& out, const Zmod& val){
+        out << val.elem;
+        return out;
     }
 
 };
