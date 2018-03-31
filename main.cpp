@@ -20,7 +20,7 @@ int main(int argc, const char * argv[]) {
     std::cout << "3 / 8 mod 13 = " << Zmod<13>(3) / 8 << std::endl;
     std::cout << "3 / 5 mod 13 = " << Zmod<13>(3) / 5 << std::endl;
     std::cout << "4 / 8 mod 13 = " << Zmod<13>(4) / 8 << std::endl;
-
+    //std::cout << "4 / 8 mod 13 = " << Zmod<13>(4) / 0 << std::endl; //error
     typedef Vector<double, 3> R3;
     Matrix<double, 3, 3> M({
         1, 2, -4.3,
