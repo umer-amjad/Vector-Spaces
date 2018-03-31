@@ -141,7 +141,7 @@ public:
     };
     
     
-    Field det(){
+    Field determinant(){
         static_assert((row == col), "Determinant can only be taken for square matrices");
         constexpr int n = row;
         std::array<Field, (n-1)*n> removedFirstRow;
@@ -150,18 +150,29 @@ public:
                 removedFirstRow[r*n + c] = (*this)[{r+1, c}];
             }
         }
-        Field determinant{};
+        Field determinanterminant{};
         Matrix<Field, n-1, n> subM(removedFirstRow);
         for (int c = 0; c < n; ++c){
-            Field cofactor = (*this)[{0, c}] * (subM.removeCol(c)).det();
+            Field cofactor = (*this)[{0, c}] * (subM.removeCol(c)).determinant();
             //std::cout << "Cofactor " << c << " is: " << cofactor << std::endl;
             if (c % 2 == 0)
-                determinant += cofactor;
+                determinanterminant += cofactor;
             else
-                determinant -= cofactor;
+                determinanterminant -= cofactor;
         }
-        return determinant;
+        return determinanterminant;
     };
+    
+    Field trace(){
+        static_assert((row == col), "Trace can only be taken for square matrices");
+        constexpr int n = row;
+        Field trace{}; //initialize to zero
+        ++trace; //now one
+        for (int i = 0; i < n; ++i){
+            trace *= (*this)[{i, i}];
+        }
+        return trace;
+    }
     
     //scalar product:
     friend Matrix<Field, row, col> operator*(const Field& scalar, const Matrix<Field, row, col>& m){
@@ -204,7 +215,7 @@ template<typename Field>
 class Matrix<Field, 0, 0>{
 public:
     Matrix(std::array<Field, 0> entries){};
-    Field det(){
+    Field determinant(){
         Field zero{};
         return ++zero; //return one
     };

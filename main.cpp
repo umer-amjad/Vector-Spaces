@@ -27,38 +27,41 @@ int main(int argc, const char * argv[]) {
         11.2, 1, -3.5,
         -1, -13, 1
     });
-    //std::cout << "det(M) is: " << det(M) << std::endl; //561.88
-    std::cout << "det(M) is: " << M.det() << std::endl;
+    std::cout << "M: \n" << M << std::endl;
+    std::cout << "determinant(M) is: " << M.determinant() << std::endl;  //561.88
+    std::cout << "trace(M) is: " << M.trace() << std::endl;
 
-    Matrix<double, 2, 3> A1({
-       3, 7, 0,
-       0.5, 4, 2
-    });
-    
     Matrix<Zmod<13>, 2, 2> modExample({
         3, 7,
         -2, 4
     });
+    std::cout << "modExample: \n" << modExample << std::endl;
+    std::cout << "determinant(modExample) is: " << modExample.determinant() << std::endl;
+    std::cout << "trace(modExample) is: " << modExample.trace() << std::endl;
     
     Matrix<Zmod<13>, 2, 2> modExample2({
         3, 7,
         -2, 5
     });
+    std::cout << "modExample2: \n" << modExample2 << std::endl;
+    std::cout << "determinant(modExample2) is: " << modExample2.determinant() << std::endl;
+    std::cout << "trace(modExample2) is: " << modExample2.trace() << std::endl;
     
     Matrix<Zmod<7>, 2, 2> modExample3({
         3, 7,
         -2, 9
     });
-    
-    std::cout << "modExample: \n" << modExample << std::endl;
-    std::cout << "modExample2: \n" << modExample2 << std::endl;
     std::cout << "modExample3: \n" << modExample3 << std::endl;
-    
-    std::cout << "det(modExample) is: " << modExample.det() << std::endl;
-    std::cout << "det(modExample2) is: " << modExample2.det() << std::endl;
-    std::cout << "det(modExample3) is: " << modExample3.det() << std::endl;
+    std::cout << "determinant(modExample3) is: " << modExample3.determinant() << std::endl;
+    std::cout << "trace(modExample3) is: " << modExample3.trace() << std::endl;
 
-    //std::cout << "det(A1) is: " << det(A1) << std::endl; //error
+    
+    Matrix<double, 2, 3> A1({
+        3, 7, 0,
+        0.5, 4, 2
+    });
+    //std::cout << "determinant(A1) is: " << determinant(A1) << std::endl; //error
+    
     Matrix<double, 3, 1> A2({
         2,
         5,
@@ -69,8 +72,9 @@ int main(int argc, const char * argv[]) {
         5, -5,
         0.5, -3
     });
-    std::cout << "A1: \n" << A1 << '\n'<< A2 << '\n' << (A1*A2) << '\n' << (A1*M) << '\n' << (A1 * A3) << '\n';
-    std::cout << "A1 transpose \n" << A1.transpose() << std::endl;
+    std::cout << "A1: \n" << A1 << "\nA2:\n"<< A2 << "\nA1 * A2:\n" << (A1*A2);
+    std::cout << "\nA1 * M:\n" << (A1*M) << "\nA1 * A3:\n" << (A1 * A3) << '\n';
+    std::cout << "\nA1 transpose:\n" << A1.transpose() << std::endl;
     std::cout << "M:\n" << M << std::endl;
     R3 v1({1,0,1.2});
     std::cout << "A1(v1): \n"<< (A1*v1) << '\n';
