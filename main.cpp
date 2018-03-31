@@ -17,8 +17,9 @@ int main(int argc, const char * argv[]) {
     std::cout << "Inverse of 5 mod 13 is " << x.inverse() << std::endl;
     std::cout << "Inverse of 2 mod 13 is " << Zmod<13>(2).inverse() << std::endl;
     std::cout << "Inverse of 4 mod 7 is " << Zmod<7>(4).inverse() << std::endl;
-    std::cout << "3 / 8 mod 13 = " << Zmod<13>(3) / Zmod<13>(8) << std::endl;
-    std::cout << "4 / 8 mod 13 = " << Zmod<13>(4) / Zmod<13>(8) << std::endl;
+    std::cout << "3 / 8 mod 13 = " << Zmod<13>(3) / 8 << std::endl;
+    std::cout << "3 / 5 mod 13 = " << Zmod<13>(3) / 5 << std::endl;
+    std::cout << "4 / 8 mod 13 = " << Zmod<13>(4) / 8 << std::endl;
 
     typedef Vector<double, 3> R3;
     Matrix<double, 3, 3> M({
@@ -27,7 +28,7 @@ int main(int argc, const char * argv[]) {
         -1, -13, 1
     });
     //std::cout << "det(M) is: " << det(M) << std::endl; //561.88
-    std::cout << "2. det(M) is: " << M.det() << std::endl;
+    std::cout << "det(M) is: " << M.det() << std::endl;
 
     Matrix<double, 2, 3> A1({
        3, 7, 0,
