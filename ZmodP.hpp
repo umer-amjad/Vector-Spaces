@@ -98,12 +98,14 @@ public:
         int t_next = 1;
         while (r_next != 0){
             int quotient = r / r_next;
-            r = r_next;
-            t = t_next;
-            int t_next = t - quotient * t_next;
-            int r_next = r - quotient * r_next;
+            int old_r_next = r_next;
+            int old_t_next = t_next;
+            t_next = t - quotient * t_next;
+            r_next = r - quotient * r_next;
+            r = old_r_next;
+            t = old_t_next;
         }
-        return 0;
+        return Zmod(t);
     }
     
     friend std::ostream& operator<<(std::ostream& out, const Zmod& val){

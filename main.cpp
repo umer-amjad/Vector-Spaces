@@ -13,7 +13,10 @@
 #include <stdlib.h>
 
 int main(int argc, const char * argv[]) {
-    Zmod<3> x(7);
+    Zmod<13> x(5);
+    std::cout << "Inverse of 5 mod 13 is " << x.inverse() << std::endl;
+    std::cout << "Inverse of 2 mod 13 is " << Zmod<13>(2).inverse() << std::endl;
+    std::cout << "Inverse of 4 mod 7 is " << Zmod<7>(4).inverse() << std::endl;
     typedef Vector<double, 3> R3;
     Matrix<double, 3, 3> M({
         1, 2, -4.3,
