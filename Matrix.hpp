@@ -48,7 +48,7 @@ class Matrix {
     
     Matrix<Field, row, col-1> removeCol(int i) const {
         std::array<Field, row*(col-1)> colRemoved;
-        for (int r = 0; r < row; r++){
+        for (int r = 0; r < row; ++r){
             for (int c = 0; c < (col - 1); ++c){
                 if (c < i) {
                     colRemoved[r*(col-1) + c] = (*this)[{r, c}];
@@ -124,8 +124,8 @@ public:
     template<int p> //m x n matrix multiplied by n x p matrix, over field F
     Matrix<Field, row, p> operator*(const Matrix<Field, col, p>& m) const{
         std::array<Field, row*p> product;
-        for (int r = 0; r < row; r++){
-            for (int c = 0; c < p; c++){
+        for (int r = 0; r < row; ++r){
+            for (int c = 0; c < p; ++c){
                 // std::cout <<"Multiplying: \n" << m1.getRow(r) << "\nwith \n" << m2.getCol(c) << std::endl;
                 product[p*r+c] = (*this).getRow(r) * m.getCol(c); // dot product
             }
@@ -145,14 +145,14 @@ public:
         static_assert((row == col), "Determinant can only be taken for square matrices");
         constexpr int n = row;
         std::array<Field, (n-1)*n> removedFirstRow;
-        for (int r = 0; r < (n-1); r++){
-            for (int c = 0; c < n; c++){
+        for (int r = 0; r < (n-1); ++r){
+            for (int c = 0; c < n; ++c){
                 removedFirstRow[r*n + c] = (*this)[{r+1, c}];
             }
         }
         Field determinant{};
         Matrix<Field, n-1, n> subM(removedFirstRow);
-        for (int c = 0; c < n; c++){
+        for (int c = 0; c < n; ++c){
             Field cofactor = (*this)[{0, c}] * (subM.removeCol(c)).det();
             //std::cout << "Cofactor " << c << " is: " << cofactor << std::endl;
             if (c % 2 == 0)
@@ -166,7 +166,7 @@ public:
     //scalar product:
     friend Matrix<Field, row, col> operator*(const Field& scalar, const Matrix<Field, row, col>& m){
         std::array<Field, row * col> scaled;
-        for (int i = 0; i < row * col ; i++){
+        for (int i = 0; i < row * col; ++i){
             scaled[i] = scalar * m.entries[i];
         }
         return Matrix<Field, row, col>(scaled);
@@ -175,8 +175,8 @@ public:
     friend std::ostream& operator<<(std::ostream& out, const Matrix<Field, row, col>& m){
         std::array<std::array<std::string, col>, row> elems;
         std::array<int, col>  maxLengths{0};
-        for (int r = 0; r < row; r++){
-            for (int c = 0; c < col; c++){
+        for (int r = 0; r < row; ++r){
+            for (int c = 0; c < col; ++c){
                 std::stringstream ss;
                 ss << m[{r, c}];
                 elems[r][c] = ss.str();
@@ -187,7 +187,7 @@ public:
         }
         for (std::array<std::string, col> thisRow : elems){
             out << std::setw(1) << '|';
-            for (int c = 0; c < col; c++){
+            for (int c = 0; c < col; ++c){
                 if (c != 0){
                     out << " ";
                 }

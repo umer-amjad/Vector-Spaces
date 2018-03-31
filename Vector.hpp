@@ -41,7 +41,7 @@ public:
     
     //vector additions, subtractions, negatives:
     Vector& operator+=(const Vector& other) {
-        for (int i = 0; i < dim; i++){
+        for (int i = 0; i < dim; ++i){
             (*this)[i] += other[i];
         }
         return (*this);
@@ -58,7 +58,7 @@ public:
     };
     
     Vector& operator-=(const Vector& other) {
-        for (int i = 0; i < dim; i++){
+        for (int i = 0; i < dim; ++i){
             (*this)[i] -= other[i];
         }
         return (*this);
@@ -66,7 +66,7 @@ public:
     
     Vector operator-() const {
         std::array<Field, dim> negative;
-        for (int i = 0; i < dim; i++){
+        for (int i = 0; i < dim; ++i){
             negative[i] = -((*this)[i]);
         }
         return negative;
@@ -81,8 +81,8 @@ public:
     //dot product:
     Field operator*(const Vector& other) const {
         Field dotProduct{};
-        for (int i = 0; i < dim; i++){
-            dotProduct = dotProduct + (*this)[i] * other[i];
+        for (int i = 0; i < dim; ++i){
+            dotProduct += (*this)[i] * other[i];
         }
         return dotProduct;
     };
@@ -90,7 +90,7 @@ public:
     //scalar product:
     friend Vector<Field, dim> operator*(const Field& scalar, const Vector<Field, dim>& v){
         std::array<Field, dim> scaled;
-        for (int i = 0; i < dim; i++){
+        for (int i = 0; i < dim; ++i){
             scaled[i] = scalar * v[i];
         }
         return Vector<Field, dim>(scaled);
@@ -99,7 +99,7 @@ public:
     friend std::ostream& operator<<(std::ostream& out, const Vector<Field, dim>& v){
         std::array<std::string, dim> elems;
         int maxLength = 0;
-        for (int i = 0; i < dim; i++){
+        for (int i = 0; i < dim; ++i){
             std::stringstream ss;
             ss << v[i];
             elems[i] = ss.str();
