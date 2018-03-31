@@ -1,7 +1,7 @@
 # Vector-Spaces-and-Matrices
 This project written in C++ provides template classes to represent vectors and matrices. 
 
-Existing features includes vector addition, scalar multiplication, matrix multiplication, matrix determinants, and matrix transformations of vectors.
+Existing features include vector addition, scalar multiplication, matrix multiplication, matrix determinants, and matrix transformations of vectors.
 
 ### Motivation: ###
 - Learn to implement templates in C++
