@@ -37,10 +37,19 @@ int main(int argc, const char * argv[]) {
         3, 7,
         -2, 5
     });
+    
+    Matrix<Zmod<7>, 2, 2> modExample3({
+        3, 7,
+        -2, 9
+    });
+    
+    std::cout << "modExample: \n" << modExample << std::endl;
     std::cout << "modExample2: \n" << modExample2 << std::endl;
+    std::cout << "modExample3: \n" << modExample3 << std::endl;
     
     std::cout << "det(modExample) is: " << modExample.det() << std::endl;
     std::cout << "det(modExample2) is: " << modExample2.det() << std::endl;
+    std::cout << "det(modExample3) is: " << modExample3.det() << std::endl;
 
     //std::cout << "det(A1) is: " << det(A1) << std::endl; //error
     Matrix<double, 3, 1> A2({
