@@ -8,10 +8,12 @@
 #include <iostream>
 #include "Vector.hpp"
 #include "Matrix.hpp"
+#include "ZmodP.hpp"
 #include <stdio.h>
 #include <stdlib.h>
 
 int main(int argc, const char * argv[]) {
+    Zmod<3> x(7);
     typedef Vector<double, 3> R3;
     Matrix<double, 3, 3> M({
         1, 2, -4.3,
