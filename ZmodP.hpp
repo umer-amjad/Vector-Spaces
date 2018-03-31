@@ -32,6 +32,21 @@ public:
         return copy;
     }
     
+    Zmod& operator--(){
+        if (elem == 0){
+            elem = p - 1;
+        } else {
+            --elem;
+        }
+        return *this;
+    }
+    
+    Zmod operator--(int){
+        Zmod copy = *this;
+        operator--();
+        return copy;
+    }
+    
     Zmod& operator+=(const Zmod& other){
         this->elem += other.elem;
         this->elem %= p;
