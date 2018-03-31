@@ -107,7 +107,7 @@ public:
                 maxLength =(int) elems[i].length();
             }
         }
-        for (std::string component : elems){
+        for (std::string& component : elems){
             out << std::setw(1) << '|';
             out << std::setw(maxLength) << component;
             out << std::setw(1) << "|\n";

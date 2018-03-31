@@ -111,10 +111,10 @@ public:
     //transpose:
     Matrix<Field, col, row> transpose() const {
         std::array <Field, col * row> transposeEntries;
-        for (int r = 0; r < col; ++r){
-            for (int c = 0; c < row; ++c){
+        for (int r = 0; r < row; ++r){
+            for (int c = 0; c < col; ++c){
                 //number of cols is row for transpose
-                transposeEntries[row*r+c] = (*this)[{c, r}];
+                transposeEntries[row*c+r] = (*this)[{r, c}];
             }
         }
         return Matrix<Field, col, row>(transposeEntries);
@@ -185,7 +185,7 @@ public:
                 }
             }
         }
-        for (std::array<std::string, col> thisRow : elems){
+        for (std::array<std::string, col>& thisRow : elems){
             out << std::setw(1) << '|';
             for (int c = 0; c < col; ++c){
                 if (c != 0){
