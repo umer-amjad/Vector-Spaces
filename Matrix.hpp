@@ -156,9 +156,9 @@ public:
             Field cofactor = (*this)[{0, c}] * (subM.removeCol(c)).det();
             //std::cout << "Cofactor " << c << " is: " << cofactor << std::endl;
             if (c % 2 == 0)
-                determinant = determinant + cofactor;
+                determinant += cofactor;
             else
-                determinant = determinant - cofactor;
+                determinant -= cofactor;
         }
         return determinant;
     };
