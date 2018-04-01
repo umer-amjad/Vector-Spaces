@@ -28,6 +28,8 @@ int main(int argc, const char * argv[]) {
         -1, -13, 1
     });
     std::cout << "M: \n" << M << std::endl;
+    std::cout << "-2M: \n" << -2*M << std::endl;
+    
     std::cout << "determinant(M) is: " << M.determinant() << std::endl;  //561.88
     std::cout << "trace(M) is: " << M.trace() << std::endl;
     std::cout << "(product of diagonal entries) multiplicativeTrace(M) is: " << M.multiplicativeTrace() << std::endl;
@@ -76,9 +78,11 @@ int main(int argc, const char * argv[]) {
         5, -5,
         0.5, -3
     });
-    std::cout << "A1: \n" << A1 << "\nA2:\n"<< A2 << "\nA1 * A2:\n" << (A1*A2);
-    std::cout << "\nA1 * M:\n" << (A1*M) << "\nA1 * A3:\n" << (A1 * A3) << '\n';
-    std::cout << "\nA1 transpose:\n" << A1.transpose() << std::endl;
+    std::cout << "A1: \n" << A1 << "\nA2:\n"<< A2 << "\nA3:\n"<< A3 << "\nA1 * A2:\n" << (A1*A2);
+    std::cout << "\nA1 * M:\n" << (A1*M) << "\nA1 * A3:\n" << (A1 * A3);
+    //std::cout << "\nA1 + A2:\n" << (A1+A2); error
+    std::cout << "\nA1 transpose:\n" << A1.transpose();
+    std::cout << "\nA1 transpose + A3:\n" << (A1.transpose() + A3) << '\n';
     std::cout << "M:\n" << M << std::endl;
     R3 v1({1,0,1.2});
     std::cout << "A1(v1): \n"<< (A1*v1) << '\n';

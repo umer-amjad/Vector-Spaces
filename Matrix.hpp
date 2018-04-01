@@ -120,13 +120,12 @@ public:
         return Matrix<Field, col, row>(transposeEntries);
     }
     
-    
-    template<int p> //m x n matrix multiplied by n x p matrix, over field F
+    //m x n matrix multiplied by n x p matrix, over field F
+    template<int p>
     Matrix<Field, row, p> operator*(const Matrix<Field, col, p>& m) const{
         std::array<Field, row*p> product;
         for (int r = 0; r < row; ++r){
             for (int c = 0; c < p; ++c){
-                // std::cout <<"Multiplying: \n" << m1.getRow(r) << "\nwith \n" << m2.getCol(c) << std::endl;
                 product[p*r+c] = this->getRow(r) * m.getCol(c); // dot product
             }
         }
@@ -150,21 +149,21 @@ public:
                 removedFirstRow[r*n + c] = (*this)[{r+1, c}];
             }
         }
-        Field determinanterminant{};
+        Field determinant{};
         Matrix<Field, n-1, n> subM(removedFirstRow);
         for (int c = 0; c < n; ++c){
             Field cofactor = (*this)[{0, c}] * (subM.removeCol(c)).determinant();
             //std::cout << "Cofactor " << c << " is: " << cofactor << std::endl;
             if (c % 2 == 0)
-                determinanterminant += cofactor;
+                determinant += cofactor;
             else
-                determinanterminant -= cofactor;
+                determinant -= cofactor;
         }
-        return determinanterminant;
+        return determinant;
     };
     
     Field multiplicativeTrace(){
-        static_assert((row == col), "Trace can only be taken for square matrices");
+        static_assert((row == col), "Mutliplicative trace can only be taken for square matrices");
         constexpr int n = row;
         Field trace{}; //initialize to zero
         ++trace; //one
@@ -187,9 +186,10 @@ public:
     //scalar product:
     friend Matrix<Field, row, col> operator*(const Field& scalar, const Matrix<Field, row, col>& m){
         std::array<Field, row * col> scaled;
-        for (int i = 0; i < row * col; ++i){
-            scaled[i] = scalar * m.entries[i];
-        }
+        std::transform(m.entries.begin(), m.entries.end(), scaled.begin(),
+                       [&scalar](const Field& entry){
+                           return entry*scalar;
+                       });
         return Matrix<Field, row, col>(scaled);
     };
 
