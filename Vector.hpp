@@ -104,7 +104,7 @@ public:
             ss << v[i];
             elems[i] = ss.str();
             if (elems[i].length() > maxLength){
-                maxLength =(int) elems[i].length();
+                maxLength = (int) elems[i].length();
             }
         }
         for (std::string& component : elems){

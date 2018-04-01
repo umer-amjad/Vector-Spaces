@@ -25,7 +25,7 @@ class Matrix {
     std::array<Field, row * col> entries;
     
     const Field& operator[](MatrixIndex i) const {
-        return entries[col*i.rowIndex+i.colIndex];
+        return entries[col * i.rowIndex + i.colIndex];
     };
     
     //length of each row is "col"
@@ -47,27 +47,27 @@ class Matrix {
     };
     
     Matrix<Field, row, col-1> removeCol(int i) const {
-        std::array<Field, row*(col-1)> colRemoved;
+        std::array<Field, row * (col - 1)> colRemoved;
         for (int r = 0; r < row; ++r){
             for (int c = 0; c < (col - 1); ++c){
                 if (c < i) {
-                    colRemoved[r*(col-1) + c] = (*this)[{r, c}];
+                    colRemoved[r * (col - 1) + c] = (*this)[{r, c}];
                 } else {
-                    colRemoved[r*(col-1) + c] =(*this)[{r, c+1}];
+                    colRemoved[r * (col - 1) + c] =(*this)[{r, c + 1}];
                 }
             }
         }
-        return Matrix<Field, row, col-1>(colRemoved);
+        return Matrix<Field, row, col - 1>(colRemoved);
     }
     
 public:
     
     //zero-initialize
     Matrix() {
-        entries = std::array<Field, row*col>{};
+        entries = std::array<Field, row * col>{};
     }
     
-    Matrix(std::array<Field, row*col> entries) : entries(entries){};
+    Matrix(std::array<Field, row * col> entries) : entries(entries){};
     
     //matrix additions, subtractions, negatives:
     Matrix& operator+=(const Matrix& other) {
@@ -114,7 +114,7 @@ public:
         for (int r = 0; r < row; ++r){
             for (int c = 0; c < col; ++c){
                 //number of cols is row for transpose
-                transposeEntries[row*c+r] = (*this)[{r, c}];
+                transposeEntries[row * c + r] = (*this)[{r, c}];
             }
         }
         return Matrix<Field, col, row>(transposeEntries);
@@ -123,10 +123,10 @@ public:
     //m x n matrix multiplied by n x p matrix, over field F
     template<int p>
     Matrix<Field, row, p> operator*(const Matrix<Field, col, p>& m) const{
-        std::array<Field, row*p> product;
+        std::array<Field, row * p> product;
         for (int r = 0; r < row; ++r){
             for (int c = 0; c < p; ++c){
-                product[p*r+c] = this->getRow(r) * m.getCol(c); // dot product
+                product[p * r + c] = this->getRow(r) * m.getCol(c); // dot product
             }
         }
         return Matrix<Field, row, p>(product);
@@ -143,14 +143,14 @@ public:
     Field determinant(){
         static_assert((row == col), "Determinant can only be taken for square matrices");
         constexpr int n = row;
-        std::array<Field, (n-1)*n> removedFirstRow;
-        for (int r = 0; r < (n-1); ++r){
+        std::array<Field, (n - 1) * n> removedFirstRow;
+        for (int r = 0; r < n - 1; ++r){
             for (int c = 0; c < n; ++c){
-                removedFirstRow[r*n + c] = (*this)[{r+1, c}];
+                removedFirstRow[r * n + c] = (*this)[{r + 1, c}];
             }
         }
         Field determinant{};
-        Matrix<Field, n-1, n> subM(removedFirstRow);
+        Matrix<Field, n - 1, n> subM(removedFirstRow);
         for (int c = 0; c < n; ++c){
             Field cofactor = (*this)[{0, c}] * (subM.removeCol(c)).determinant();
             //std::cout << "Cofactor " << c << " is: " << cofactor << std::endl;
@@ -202,7 +202,7 @@ public:
                 ss << m[{r, c}];
                 elems[r][c] = ss.str();
                 if (elems[r][c].length() > maxLengths[c]){
-                    maxLengths[c] =(int) elems[r][c].length();
+                    maxLengths[c] = (int) elems[r][c].length();
                 }
             }
         }
