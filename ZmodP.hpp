@@ -93,7 +93,7 @@ public:
     Zmod inverse() const{
         //Using the Extended Euclidean Algorithm
         if (elem == 0){
-            throw std::out_of_range("Error: Division by zero");
+            throw std::invalid_argument("Error: Division by zero");
         }
         int r = p;
         int r_next = elem;
