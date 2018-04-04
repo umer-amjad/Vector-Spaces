@@ -184,17 +184,18 @@ public:
     }
     
     //test row echelon form:
-    void rowEchelon(){
+    void fastDet(){
+        static_assert((row == col), "Determinant can only be taken for square matrices");
         Matrix test = *this;
         std::cout << test;
         constexpr int n = row;
-        for (int i = 0; i < n - 1; i++) {
-            for (int j = i+1; j < n; j++) {
-                Field ratio = test[{j, i}]/test[{i, i}];
-                for (int k = i; k < n; k++) {
-                    test.entries[col*j + k] -= (ratio * test[{i, k}]);
+        for (int corner = 0; corner < n - 1; ++corner) {
+            for (int r = corner + 1; r < n; ++r) {
+                Field ratio = test[{r, corner}] / test[{corner, corner}];
+                for (int c = corner; c < n; c++) {
+                    test.entries[col*r + c] -= (ratio * test[{corner, c}]);
                 }
-                std::cout << "i, j " << i << ", " << j << ", " << ratio << std::endl;
+                std::cout << "Corner: " << corner << " Row: " << r << std::endl;
                 std::cout << test << std::endl;
             }
         }
