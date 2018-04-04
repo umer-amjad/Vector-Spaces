@@ -187,22 +187,19 @@ public:
     void rowEchelon(){
         Matrix test = *this;
         std::cout << test;
-        double product = 1;
         constexpr int n = row;
         for (int i = 0; i < n - 1; i++) {
             for (int j = i+1; j < n; j++) {
-                test.entries[col*j + i] = test[{j, i}]/test[{i, i}];
-                product /= test[{i, i}];
-                //double ratio = ;
-                for (int k = i+1; k < n; k++) {
-                    std::cout << "i, j, k: " << i << ", " << j << ", " << k << std::endl;
-                    std::cout << test << std::endl;
-                    test.entries[col*j + k] -= (test[{j, i}] * test[{i, k}]);
+                Field ratio = test[{j, i}]/test[{i, i}];
+                for (int k = i; k < n; k++) {
+                    test.entries[col*j + k] -= (ratio * test[{i, k}]);
                 }
+                std::cout << "i, j " << i << ", " << j << ", " << ratio << std::endl;
+                std::cout << test << std::endl;
             }
         }
-        std::cout << product << std::endl;
-        std::cout << test;
+        std::cout << "Det? " << test.multiplicativeTrace() << std::endl;
+        std::cout << test << std::endl;
     }
     
     //scalar product:
