@@ -187,11 +187,34 @@ public:
     Field fastDet(){
         static_assert((row == col), "Determinant can only be taken for square matrices");
         Matrix rowEchelon = *this;
+        const Field zero{};
+        Field negativeOne{};
+        --negativeOne; //now is negativeOne
         Field det{};
         ++det; //start at one
         constexpr int n = row;
         for (int corner = 0; corner < n ; ++corner) {
             for (int r = corner + 1; r < n; ++r) {
+                
+                //if zero, swap with non-zero:
+                if (rowEchelon[{corner, corner}] == zero){
+                    int toSwap = -1;
+                    for (int swapR = corner + 1; swapR < n; ++swapR){
+                        if (rowEchelon[{swapR, corner}] != zero){
+                            toSwap = swapR;
+                            break;
+                        }
+                    }
+                    if (toSwap == -1){
+                        return zero;
+                    }
+                    for (int swapC = corner; swapC < n; ++swapC){
+                        std::swap(rowEchelon.entries[col*corner+swapC], rowEchelon.entries[col*toSwap+swapC]);
+                    }
+                    det *= negativeOne; //for each swap, multiply by -1
+                }
+                
+                
                 Field ratio = rowEchelon[{r, corner}] / rowEchelon[{corner, corner}];
                 for (int c = corner; c < n; ++c) {
                     rowEchelon.entries[col*r + c] -= (ratio * rowEchelon[{corner, c}]);

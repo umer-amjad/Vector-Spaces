@@ -18,6 +18,14 @@ public:
     Zmod() : elem(0){};
     Zmod(int a) : elem((a + p) % p){};
     
+    bool operator==(const Zmod& other) const{
+        return elem == other.elem;
+    }
+    
+    bool operator!=(const Zmod& other) const{
+        return !(operator==(other));
+    }
+    
     Zmod& operator++(){
         ++elem;
         if (elem == p){
