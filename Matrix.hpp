@@ -184,23 +184,26 @@ public:
     }
     
     //test row echelon form:
-    void fastDet(){
+    Field fastDet(){
         static_assert((row == col), "Determinant can only be taken for square matrices");
         Matrix test = *this;
-        std::cout << test;
+        Field det{};
+        ++det; //start at one
         constexpr int n = row;
-        for (int corner = 0; corner < n - 1; ++corner) {
+        for (int corner = 0; corner < n ; ++corner) {
             for (int r = corner + 1; r < n; ++r) {
                 Field ratio = test[{r, corner}] / test[{corner, corner}];
                 for (int c = corner; c < n; c++) {
                     test.entries[col*r + c] -= (ratio * test[{corner, c}]);
                 }
-                std::cout << "Corner: " << corner << " Row: " << r << std::endl;
-                std::cout << test << std::endl;
+                //std::cout << "Corner: " << corner << " Row: " << r << std::endl;
             }
+            //std::cout << test << std::endl;
+            det *= test[{corner, corner}];
         }
-        std::cout << "Det? " << test.multiplicativeTrace() << std::endl;
-        std::cout << test << std::endl;
+        //std::cout << "Det? " << test.multiplicativeTrace() << std::endl;
+        return det;
+        return test.multiplicativeTrace();
     }
     
     //scalar product:
