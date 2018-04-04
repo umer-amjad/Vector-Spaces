@@ -29,6 +29,7 @@ int main(int argc, const char * argv[]) {
     });
     std::cout << "M: \n" << M << std::endl;
     std::cout << "-2M: \n" << -2*M << std::endl;
+    M.rowEchelon();
     
     std::cout << "determinant(M) is: " << M.determinant() << std::endl;  //561.88
     std::cout << "trace(M) is: " << M.trace() << std::endl;

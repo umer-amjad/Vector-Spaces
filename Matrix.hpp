@@ -183,6 +183,28 @@ public:
         return trace;
     }
     
+    //test row echelon form:
+    void rowEchelon(){
+        Matrix test = *this;
+        std::cout << test;
+        double product = 1;
+        constexpr int n = row;
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = i+1; j < n; j++) {
+                test.entries[col*j + i] = test[{j, i}]/test[{i, i}];
+                product /= test[{i, i}];
+                //double ratio = ;
+                for (int k = i+1; k < n; k++) {
+                    std::cout << "i, j, k: " << i << ", " << j << ", " << k << std::endl;
+                    std::cout << test << std::endl;
+                    test.entries[col*j + k] -= (test[{j, i}] * test[{i, k}]);
+                }
+            }
+        }
+        std::cout << product << std::endl;
+        std::cout << test;
+    }
+    
     //scalar product:
     friend Matrix<Field, row, col> operator*(const Field& scalar, const Matrix<Field, row, col>& m){
         std::array<Field, row * col> scaled;
