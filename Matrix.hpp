@@ -183,27 +183,27 @@ public:
         return trace;
     }
     
-    //test row echelon form:
+    //using row echelon form to calculate determinants fast:
     Field fastDet(){
         static_assert((row == col), "Determinant can only be taken for square matrices");
-        Matrix test = *this;
+        Matrix rowEchelon = *this;
         Field det{};
         ++det; //start at one
         constexpr int n = row;
         for (int corner = 0; corner < n ; ++corner) {
             for (int r = corner + 1; r < n; ++r) {
-                Field ratio = test[{r, corner}] / test[{corner, corner}];
-                for (int c = corner; c < n; c++) {
-                    test.entries[col*r + c] -= (ratio * test[{corner, c}]);
+                Field ratio = rowEchelon[{r, corner}] / rowEchelon[{corner, corner}];
+                for (int c = corner; c < n; ++c) {
+                    rowEchelon.entries[col*r + c] -= (ratio * rowEchelon[{corner, c}]);
                 }
                 //std::cout << "Corner: " << corner << " Row: " << r << std::endl;
             }
-            //std::cout << test << std::endl;
-            det *= test[{corner, corner}];
+            //std::cout << rowEchelon << std::endl;
+            det *= rowEchelon[{corner, corner}];
         }
         //std::cout << "Det? " << test.multiplicativeTrace() << std::endl;
         return det;
-        return test.multiplicativeTrace();
+        return rowEchelon.multiplicativeTrace();
     }
     
     //scalar product:

@@ -35,6 +35,19 @@ int main(int argc, const char * argv[]) {
     std::cout << "trace(M) is: " << M.trace() << std::endl;
     std::cout << "(product of diagonal entries) multiplicativeTrace(M) is: " << M.multiplicativeTrace() << std::endl;
     
+    Matrix<double, 3, 3> M2({
+        1, 2, -4.3,
+        11.2, 22.4, -3.5,
+        -1, -13, 1
+    });
+    std::cout << "M2: \n" << M2 << std::endl;
+    std::cout << "-2*M2: \n" << -2*M2 << std::endl;
+    std::cout << "det(M2) is : " << M2.fastDet() << std::endl; //NOT WORKING!!!
+    
+    std::cout << "determinant(M2) is: " << M2.determinant() << std::endl;  //491.26
+    std::cout << "trace(M2) is: " << M2.trace() << std::endl;
+    std::cout << "(product of diagonal entries) multiplicativeTrace(M2) is: " << M2.multiplicativeTrace() << std::endl;
+    
     Matrix<double, 4, 4> BigM({
         1, 2, -4.3, -2.9,
         11.2, 1, -3.5, 0.3,
