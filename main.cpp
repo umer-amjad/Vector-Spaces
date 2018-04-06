@@ -61,6 +61,59 @@ int main(int argc, const char * argv[]) {
     
     std::cout << "determinant(BigM) is: " << BigM.determinant() << std::endl;  //160.793
     
+    Matrix<double, 4, 4> BigM2({
+        0, 2, -4.3, -2.9,
+        11.2, 1, -3.5, 0.3,
+        -1, -13, 1, -0.1,
+        2.5, 1.5, -0.4, 0.7
+    });
+    
+    std::cout << "BigM2: \n" << BigM2 << std::endl;
+    std::cout << "-2BigM2: \n" << -2*BigM2 << std::endl;
+    std::cout << "det(BigM2) is : " << BigM2.fastDet() << std::endl;
+    
+    std::cout << "determinant(BigM2) is: " << BigM2.determinant() << std::endl;  //190.349
+    
+    Matrix<double, 4, 4> BigM3({
+        0, 2, -4.3, -2.9,
+        11.2, 0, -3.5, 0.3,
+        -1, -13, 0, -0.1,
+        2.5, 1.5, -0.4, 0
+    });
+    
+    std::cout << "BigM3: \n" << BigM3 << std::endl;
+    std::cout << "-2BigM3: \n" << -2*BigM3 << std::endl;
+    std::cout << "det(BigM3) is : " << BigM3.fastDet() << std::endl;
+    
+    std::cout << "determinant(BigM3) is: " << BigM3.determinant() << std::endl;  //-194.064
+    
+    
+    Matrix<double, 4, 4> BigM4({
+        1, 2, 2, 1,
+        0, 2, 0, 0,
+        -1, -4, -2, -1,
+        1, 4, 4, 1
+    });
+    
+    std::cout << "BigM4: \n" << BigM4 << std::endl;
+    std::cout << "-2BigM4: \n" << -2*BigM4 << std::endl;
+    std::cout << "det(BigM4) is : " << BigM4.fastDet() << std::endl;
+    
+    std::cout << "determinant(BigM4) is: " << BigM4.determinant() << std::endl;  //0
+    
+    Matrix<double, 4, 4> BigM5({
+        1, 2, 2, 1,
+        0, 2, 2, 0,
+        -1, -4, -4, -1,
+        1, 4, 4, 1
+    });
+    
+    std::cout << "BigM5: \n" << BigM5 << std::endl;
+    std::cout << "-2BigM5: \n" << -2*BigM5 << std::endl;
+    std::cout << "det(BigM5) is : " << BigM5.fastDet() << std::endl;
+    
+    std::cout << "determinant(BigM5) is: " << BigM5.determinant() << std::endl;  //0
+    
 
     Matrix<Zmod<13>, 2, 2> modExample({
         3, 7,
@@ -68,6 +121,7 @@ int main(int argc, const char * argv[]) {
     });
     std::cout << "modExample: \n" << modExample << std::endl;
     std::cout << "determinant(modExample) is: " << modExample.determinant() << std::endl;
+    std::cout << "det(modExample) is : " << modExample.fastDet() << std::endl;
     std::cout << "trace(modExample) is: " << modExample.trace() << std::endl;
     std::cout << "multiplicativeTrace(modExample) is: " << modExample.multiplicativeTrace() << std::endl;
     
@@ -76,6 +130,7 @@ int main(int argc, const char * argv[]) {
         -2, 5
     });
     std::cout << "modExample2: \n" << modExample2 << std::endl;
+    std::cout << "det(modExample2) is : " << modExample2.fastDet() << std::endl;
     std::cout << "determinant(modExample2) is: " << modExample2.determinant() << std::endl;
     std::cout << "trace(modExample2) is: " << modExample2.trace() << std::endl;
     std::cout << "multiplicativeTrace(modExample2) is: " << modExample2.multiplicativeTrace() << std::endl;
