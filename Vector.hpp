@@ -39,6 +39,16 @@ public:
         return components;
     }
     
+    //vector equality:
+    bool operator==(const Vector& other) const {
+        for (int i = 0; i < dim; ++i) {
+            if (components[i] != other.components[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
     //vector additions, subtractions, negatives:
     Vector& operator+=(const Vector& other) {
         for (int i = 0; i < dim; ++i){

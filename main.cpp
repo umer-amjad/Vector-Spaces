@@ -42,7 +42,7 @@ int main(int argc, const char * argv[]) {
     });
     std::cout << "M2: \n" << M2 << std::endl;
     std::cout << "-2*M2: \n" << -2*M2 << std::endl;
-    std::cout << "det(M2) is : " << M2.fastDet() << std::endl; //NOT WORKING!!!
+    std::cout << "det(M2) is : " << M2.fastDet() << std::endl;
     
     std::cout << "determinant(M2) is: " << M2.determinant() << std::endl;  //491.26
     std::cout << "trace(M2) is: " << M2.trace() << std::endl;

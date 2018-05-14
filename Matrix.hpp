@@ -70,6 +70,16 @@ public:
     
     Matrix(std::array<Field, row * col> entries) : entries(entries){};
     
+    //matrix equality:
+    bool operator==(const Matrix& other) const {
+        for (int i = 0; i < row * col; ++i) {
+            if (entries[i] != other.entries[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
     //matrix additions, subtractions, negatives:
     Matrix& operator+=(const Matrix& other) {
         for (int i = 0; i < row * col; ++i){
