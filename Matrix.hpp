@@ -9,6 +9,7 @@
 #define Matrix_hpp
 
 #include <array>
+#include <algorithm>
 #include "Vector.hpp"
 
 struct MatrixIndex {
