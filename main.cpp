@@ -11,12 +11,46 @@
 #include "ZmodP.hpp"
 #include <stdio.h>
 #include <stdlib.h>
+#include <exception>
+
+int testModInverse(){
+    int success = 0;
+    if (Zmod<13>(5).inverse() != Zmod<13>(8)){
+        throw std::runtime_error("Failed test " + std::to_string(success));
+    }
+    ++success;
+    if (Zmod<13>(2).inverse() != Zmod<13>(7)){
+        throw std::runtime_error("Failed test " + std::to_string(success));
+    }
+    ++success;
+    if (Zmod<13>(4).inverse() != Zmod<13>(10)){
+        throw std::runtime_error("Failed test " + std::to_string(success));
+    }
+    ++success;
+    Zmod<3697> unit(1);
+    for (int i = 0; i < 100; ++i){
+        int z = rand();
+        if (z == 0){
+            continue;
+        }
+        Zmod<3697> elem(z);
+        Zmod<3697> inverse = elem.inverse();
+        if (elem * inverse != unit){
+            throw std::runtime_error("Failed test: inverse of " + std::to_string(z));
+        }
+        //std::cout << "Inverse of " << elem << " is " << inverse << " in Z mod 3697\n";
+        ++success;
+    }
+    return success;
+}
 
 int main(int argc, const char * argv[]) {
-    Zmod<13> x(5);
-    std::cout << "Inverse of 5 mod 13 is " << x.inverse() << std::endl;
-    std::cout << "Inverse of 2 mod 13 is " << Zmod<13>(2).inverse() << std::endl;
-    std::cout << "Inverse of 4 mod 7 is " << Zmod<7>(4).inverse() << std::endl;
+    srand(time(0));
+    try {
+        testModInverse();
+    } catch (const std::exception& e){
+        std::cerr << e.what() << std::endl;
+    }
     std::cout << "3 / 8 mod 13 = " << Zmod<13>(3) / 8 << std::endl;
     std::cout << "3 / 5 mod 13 = " << Zmod<13>(3) / 5 << std::endl;
     std::cout << "4 / 8 mod 13 = " << Zmod<13>(4) / 8 << std::endl;
