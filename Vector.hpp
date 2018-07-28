@@ -117,11 +117,13 @@ public:
                 maxLength = (int) elems[i].length();
             }
         }
+        out << " _" << std::setw(maxLength) << " " << "_\n";
         for (std::string& component : elems){
-            out << std::setw(1) << "| ";
+            out << "| ";
             out << std::setw(maxLength) << component;
-            out << std::setw(1) << " |\n";
+            out << " |\n";
         }
+        out << " ¯" << std::setw(maxLength) << " " << "¯\n";
         return out;
     };
 };

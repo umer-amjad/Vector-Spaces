@@ -10,6 +10,7 @@
 
 #include <array>
 #include <algorithm>
+#include <numeric>
 #include "Vector.hpp"
 
 struct MatrixIndex {
@@ -263,13 +264,17 @@ public:
                 }
             }
         }
+        int rowLength = std::accumulate(maxLengths.begin(), maxLengths.end(), 0);
+        //rowLength added to spaces between entries
+        out << " _" << std::setw(rowLength + col - 1) << " " << "_\n"; 
         for (std::array<std::string, col>& thisRow : elems){
-            out << std::setw(1) << '|';
+            out << '|';
             for (int c = 0; c < col; ++c){
                 out << " " << std::setw(maxLengths[c]) << thisRow[c];
             }
-            out << std::setw(1) << " |\n";
+            out << " |\n";
         }
+        out << " ¯" << std::setw(rowLength + col - 1) << " " << "¯\n"; 
         return out;
     };
 };
