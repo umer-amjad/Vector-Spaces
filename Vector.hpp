@@ -118,9 +118,9 @@ public:
             }
         }
         for (std::string& component : elems){
-            out << std::setw(1) << '|';
+            out << std::setw(1) << "| ";
             out << std::setw(maxLength) << component;
-            out << std::setw(1) << "|\n";
+            out << std::setw(1) << " |\n";
         }
         return out;
     };

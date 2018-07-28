@@ -266,12 +266,9 @@ public:
         for (std::array<std::string, col>& thisRow : elems){
             out << std::setw(1) << '|';
             for (int c = 0; c < col; ++c){
-                if (c != 0){
-                    out << " ";
-                }
-                out << std::setw(maxLengths[c]) << thisRow[c];
+                out << " " << std::setw(maxLengths[c]) << thisRow[c];
             }
-            out << std::setw(1) << "|\n";
+            out << std::setw(1) << " |\n";
         }
         return out;
     };
