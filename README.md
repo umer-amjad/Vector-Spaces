@@ -1,30 +1,26 @@
 # Vector-Spaces-and-Matrices
-Template classes to represent vectors and matrices written in C++. 
+Class templates to represent linear algebra over a field, written in C++. 
 
-Currently offers vector addition, scalar multiplication, matrix multiplication, matrix determinants, and matrix transformations of vectors.
+The classes provide vector addition, scalar multiplication, matrix multiplication, matrix determinants, and matrix transformations of vectors. Additionally, a class template for &#8484; &#8725; &#119901;&#8484;, the finite field of integers modulo a prime *p*, has been implemented and used as an example of a Field for which the Matrix and Vector classes will work. 
 
 ### Motivation: ###
 - Learning to implement templates in C++
-- Test and improve ability to abstract commonalities correctly
-- Apply and extend knowledge of linear algebra 
+- Testing and improving ability to generalize abstract ideas correctly
+- Applying and extending knowledge of linear algebra 
 
 ### How to use: ###
 
-The templated classes provided are as a `Vector<typename Field, int dim>` and `Matrix<typename Field, int row, int col>` where:
-- Field is the mathematical field that the vector space is over (e.g. in main, "double" is the type used here to represent the Real numbers)
-- dim is the dimension of the vector 
-- row and col are the number of rows and columns of the Matrix, respectively. 
+The code can be compiled using C++14 without the need for any external libraries or frameworks. 
 
-The operators + and * are overloaded appropriately and examples are included in main.cpp. Examples using other Fields (e.g. complex numbers, Z mod p, etc.) are planned.
+The class templates provided are as a `Vector<typename Field, int dim>` and `Matrix<typename Field, int row, int col>` where:
+- `Field` is the mathematical field that the vector space is over (e.g. in `main`, `double` is used to represent the Real numbers, `Zmod<13>` is used to represent &#8484;<sub>13</sub>, and so on)
+- `dim` is the dimension of the vector 
+- `row` and `col` are the number of rows and columns of the Matrix, respectively. 
 
-### Future: ###
+Note that the field must satisfy all the properties of a Mathematical field, i.e. it should have addition, subtraction, multiplication, and division defined. Thus, in the C++ code representing the field, along with the arithmetic operations, the assignment operators such as `+=`, `-=`, `/=`, and `*=` should also be defined. Finally, the default constructor for the Field class should return the *zero* element of the field (akin to zero initialization for non-class types like `int` and `double`). Increment and decrement operations should add and subtract the *one* element of the field respectively. Finally, for outputting purposes, the operator `<<` should be overloaded appropriately. 
 
-Plans include:
-- Implementing the set of finite fields of prime order, i.e. &#8484; &#8725; &#119901;&#8484; (i.e. the integers modulo p) with p prime, as another templated class
-- Reduced row echelon form for matrices 
-- Using row echeclon form for faster determinant calculations
+To show an example of matrices over finite fields, the class template `Zmod<int p>` is provided. This represents the field of integers modulo *p*, &#8484; &#8725; &#119901;&#8484;, with *p* prime. 
 
+There are two determinant calculations available: the ordinary one calculates the determinant according to the recursive definition (i.e. Laplace's formula), while `fastDet` calculates the determinant by first putting the matrix into row echelon form, and then finding the determinant. Laplace's formula is O(n!) - extremely undesirable - which is why the row echelon form method is provided: it is O(n<sup>3</sup>), a vast improvement over the first method. 
 
-
-
-
+Examples for how these classes and their methods are to be used can be found in the `main.cpp` file. 
